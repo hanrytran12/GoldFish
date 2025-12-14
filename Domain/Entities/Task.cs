@@ -18,5 +18,10 @@ namespace Domain.Entities
         }
 
         private Task() : base(Guid.NewGuid()) { }
+
+        public static Task Create(string content)
+        {
+            return new Task(Guid.NewGuid(), content);
+        }
     }
 }
