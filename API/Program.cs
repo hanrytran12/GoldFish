@@ -1,4 +1,4 @@
-using Application.Features.Commands.AddTask;
+using Application.Interfaces;
 using Domain.Interfaces;
 using Infrastructure.Persistence;
 using Infrastructure.Repository;
@@ -13,9 +13,10 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 
-builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(AddTaskCommand).Assembly));
+builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(IAppDbContext).Assembly));
 
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<IAppDbContext>(provider => provider.GetRequiredService<AppDbContext>());
 
 var app = builder.Build();
 

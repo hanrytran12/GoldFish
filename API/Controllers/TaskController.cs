@@ -14,6 +14,14 @@ namespace API.Controllers
             _mediator = mediator;
         }
 
+        [HttpGet]
+        public async Task<List<Domain.Entities.Task>> GetTasks()
+        {
+            var query = new Application.Features.Queries.GertAllTask.GetAllTaskQuery();
+            var result = await _mediator.Send(query);
+            return result;
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddTask([FromBody] Application.Features.Commands.AddTask.AddTaskCommand command)
         {
