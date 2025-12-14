@@ -26,11 +26,15 @@ namespace Domain.Entities
 
         public void MarkAsCompleted()
         {
+            if (IsCompleted) return;
+
             IsCompleted = true;
         }
 
         public void MarkAsUncompleted()
         {
+            if (!IsCompleted) return;
+
             IsCompleted = false;
         }
     }
