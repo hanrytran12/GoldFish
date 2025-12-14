@@ -16,14 +16,19 @@ namespace Application.Features.Queries.GertAllTask
 
         public async Task<List<TaskDTO>> Handle(GetAllTaskQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Tasks.AsNoTracking()
-                .Select(t => new TaskDTO
-                {
-                    Id = t.Id,
-                    Content = t.Content,
-                    IsCompleted = t.IsCompleted,
-                })
-                .ToListAsync(cancellationToken);
+            var query = _context.Tasks.AsNoTracking();
+
+            if (request.Date.HasValue)
+            {
+                query = query.Where(t => t.CreatedAt.Date == request.Date.Value.Date);
+            }
+
+            return await query.Select(t => new TaskDTO
+            {
+                Id = t.Id,
+                Content = t.Content,
+                IsCompleted = t.IsCompleted,
+            }).ToListAsync();
         }
     }
 }
