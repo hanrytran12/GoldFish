@@ -15,7 +15,7 @@ namespace Application.Features.Queries.GertAllTask
 
         public async Task<List<Domain.Entities.Task>> Handle(GetAllTaskQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Tasks.ToListAsync(cancellationToken);
+            return await _context.Tasks.AsNoTracking().ToListAsync(cancellationToken);
         }
     }
 }

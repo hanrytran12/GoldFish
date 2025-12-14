@@ -2,7 +2,7 @@
 
 namespace Application.Features.Commands.DeleteTask
 {
-    public class DeleteTaskCommand : IRequest<string>
+    public class DeleteTaskCommand : IRequest
     {
         public Guid Id { get; set; }
     }

@@ -2,7 +2,7 @@
 
 namespace Application.Features.Commands.MarkTaskAsCompleted
 {
-    public class MarkTaskAsCompletedCommand : IRequest<string>
+    public class MarkTaskAsCompletedCommand : IRequest
     {
         public Guid Id { get; set; }
     }

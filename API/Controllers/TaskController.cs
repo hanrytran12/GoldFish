@@ -15,50 +15,50 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<List<Domain.Entities.Task>> GetTasks()
+        public async Task<ActionResult<List<Domain.Entities.Task>>> GetTasks()
         {
             var query = new Application.Features.Queries.GertAllTask.GetAllTaskQuery();
             var result = await _mediator.Send(query);
-            return result;
+            return Ok(result);
         }
 
         [HttpGet("{id}")]
-        public async Task<Domain.Entities.Task> GetTaskById(Guid id)
+        public async Task<ActionResult<Domain.Entities.Task>> GetTaskById(Guid id)
         {
             var query = new Application.Features.Queries.GetTaskById.GetTaskByIdQuery { Id = id };
             var result = await _mediator.Send(query);
-            return result;
+            return Ok(result);
         }
 
         [HttpPost]
         public async Task<IActionResult> AddTask([FromBody] Application.Features.Commands.AddTask.AddTaskCommand command)
         {
             var result = await _mediator.Send(command);
-            return Ok(result);
+            return CreatedAtAction(nameof(GetTaskById), new { id = result }, result);
         }
 
         [HttpPut("{id}/complete")]
         public async Task<IActionResult> MarkTaskAsCompleted(Guid id)
         {
             var command = new Application.Features.Commands.MarkTaskAsCompleted.MarkTaskAsCompletedCommand { Id = id };
-            var result = await _mediator.Send(command);
-            return Ok(result);
+            await _mediator.Send(command);
+            return NoContent();
         }
 
         [HttpPut("{id}/uncomplete")]
         public async Task<IActionResult> MarkTaskAsUncompleted(Guid id)
         {
             var command = new Application.Features.Commands.MarkTaskAsUncompleted.MarkTaskAsUncompletedCommand { Id = id };
-            var result = await _mediator.Send(command);
-            return Ok(result);
+            await _mediator.Send(command);
+            return NoContent();
         }
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTask(Guid id)
         {
             var command = new Application.Features.Commands.DeleteTask.DeleteTaskCommand { Id = id };
-            var result = await _mediator.Send(command);
-            return Ok(result);
+            await _mediator.Send(command);
+            return NoContent();
         }
     }
 }

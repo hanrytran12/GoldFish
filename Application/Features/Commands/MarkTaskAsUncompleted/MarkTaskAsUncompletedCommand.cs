@@ -2,7 +2,7 @@
 
 namespace Application.Features.Commands.MarkTaskAsUncompleted
 {
-    public class MarkTaskAsUncompletedCommand : IRequest<string>
+    public class MarkTaskAsUncompletedCommand : IRequest
     {
         public Guid Id { get; set; }
     }

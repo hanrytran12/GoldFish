@@ -1,4 +1,5 @@
-﻿using Application.Interfaces;
+﻿using Application.Common.Exceptions;
+using Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -15,7 +16,11 @@ namespace Application.Features.Queries.GetTaskById
 
         public async Task<Domain.Entities.Task> Handle(GetTaskByIdQuery request, CancellationToken cancellationToken)
         {
-            var task = await _context.Tasks.Where(t => t.Id == request.Id).FirstOrDefaultAsync(cancellationToken);
+            var task = await _context.Tasks.Where(t => t.Id == request.Id).AsNoTracking().FirstOrDefaultAsync(cancellationToken);
+            if (task is null)
+            {
+                throw new NotFoundException("Task not found.");
+            }
             return task;
         }
     }
