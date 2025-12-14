@@ -22,6 +22,14 @@ namespace API.Controllers
             return result;
         }
 
+        [HttpGet("{id}")]
+        public async Task<Domain.Entities.Task> GetTaskById(Guid id)
+        {
+            var query = new Application.Features.Queries.GetTaskById.GetTaskByIdQuery { Id = id };
+            var result = await _mediator.Send(query);
+            return result;
+        }
+
         [HttpPost]
         public async Task<IActionResult> AddTask([FromBody] Application.Features.Commands.AddTask.AddTaskCommand command)
         {
