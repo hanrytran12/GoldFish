@@ -1,4 +1,5 @@
-﻿using MediatR;
+﻿using Application.DTOs;
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -15,7 +16,7 @@ namespace API.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Domain.Entities.Task>>> GetTasks()
+        public async Task<ActionResult<List<TaskDTO>>> GetTasks()
         {
             var query = new Application.Features.Queries.GertAllTask.GetAllTaskQuery();
             var result = await _mediator.Send(query);
@@ -23,7 +24,7 @@ namespace API.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Domain.Entities.Task>> GetTaskById(Guid id)
+        public async Task<ActionResult<TaskDTO>> GetTaskById(Guid id)
         {
             var query = new Application.Features.Queries.GetTaskById.GetTaskByIdQuery { Id = id };
             var result = await _mediator.Send(query);

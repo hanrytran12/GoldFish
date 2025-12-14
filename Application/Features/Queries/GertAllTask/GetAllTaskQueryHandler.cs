@@ -1,10 +1,11 @@
-﻿using Application.Interfaces;
+﻿using Application.DTOs;
+using Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Queries.GertAllTask
 {
-    public class GetAllTaskQueryHandler : IRequestHandler<GetAllTaskQuery, List<Domain.Entities.Task>>
+    public class GetAllTaskQueryHandler : IRequestHandler<GetAllTaskQuery, List<TaskDTO>>
     {
         private readonly IAppDbContext _context;
 
@@ -13,9 +14,16 @@ namespace Application.Features.Queries.GertAllTask
             _context = context;
         }
 
-        public async Task<List<Domain.Entities.Task>> Handle(GetAllTaskQuery request, CancellationToken cancellationToken)
+        public async Task<List<TaskDTO>> Handle(GetAllTaskQuery request, CancellationToken cancellationToken)
         {
-            return await _context.Tasks.AsNoTracking().ToListAsync(cancellationToken);
+            return await _context.Tasks.AsNoTracking()
+                .Select(t => new TaskDTO
+                {
+                    Id = t.Id,
+                    Content = t.Content,
+                    IsCompleted = t.IsCompleted,
+                })
+                .ToListAsync(cancellationToken);
         }
     }
 }

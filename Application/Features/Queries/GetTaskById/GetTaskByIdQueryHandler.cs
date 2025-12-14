@@ -1,11 +1,12 @@
 ﻿using Application.Common.Exceptions;
+using Application.DTOs;
 using Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
 namespace Application.Features.Queries.GetTaskById
 {
-    public class GetTaskByIdQueryHandler : IRequestHandler<GetTaskByIdQuery, Domain.Entities.Task>
+    public class GetTaskByIdQueryHandler : IRequestHandler<GetTaskByIdQuery, TaskDTO>
     {
         private readonly IAppDbContext _context;
 
@@ -14,9 +15,17 @@ namespace Application.Features.Queries.GetTaskById
             _context = context;
         }
 
-        public async Task<Domain.Entities.Task> Handle(GetTaskByIdQuery request, CancellationToken cancellationToken)
+        public async Task<TaskDTO> Handle(GetTaskByIdQuery request, CancellationToken cancellationToken)
         {
-            var task = await _context.Tasks.Where(t => t.Id == request.Id).AsNoTracking().FirstOrDefaultAsync(cancellationToken);
+            var task = await _context.Tasks.Where(t => t.Id == request.Id)
+                .AsNoTracking()
+                .Select(t => new TaskDTO
+                {
+                    Id = t.Id,
+                    Content = t.Content,
+                    IsCompleted = t.IsCompleted,
+                })
+                .FirstOrDefaultAsync(cancellationToken);
             if (task is null)
             {
                 throw new NotFoundException("Task not found.");
