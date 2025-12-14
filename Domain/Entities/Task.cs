@@ -1,0 +1,22 @@
+﻿using Domain.Primitives;
+
+namespace Domain.Entities
+{
+    public class Task : Entity
+    {
+        public string Content { get; private set; } = string.Empty;
+        public bool IsCompleted { get; private set; }
+        public bool IsDeleted { get; private set; }
+        public DateTime CreatedAt { get; private set; }
+
+        public Task(Guid id, string content) : base(id)
+        {
+            Content = content;
+            IsCompleted = false;
+            IsDeleted = false;
+            CreatedAt = DateTime.Now;
+        }
+
+        private Task() : base(Guid.NewGuid()) { }
+    }
+}
