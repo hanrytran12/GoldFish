@@ -37,5 +37,12 @@ namespace Domain.Entities
 
             IsCompleted = false;
         }
+
+        public void UpdateContent(string content)
+        {
+            if (IsCompleted) return;
+
+            this.Content = content;
+        }
     }
 }

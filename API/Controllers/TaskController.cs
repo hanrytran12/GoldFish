@@ -1,4 +1,5 @@
 ﻿using Application.DTOs;
+using Application.Features.Commands.UpdateTaskContent;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -53,6 +54,15 @@ namespace API.Controllers
             await _mediator.Send(command);
             return NoContent();
         }
+
+        [HttpPut("{id}/content")]
+        public async Task<IActionResult> UpdateTaskContent(Guid id, [FromBody] UpdateTaskContentCommand command)
+        {
+            command.Id = id;
+            await _mediator.Send(command);
+            return NoContent();
+        }
+
 
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTask(Guid id)
