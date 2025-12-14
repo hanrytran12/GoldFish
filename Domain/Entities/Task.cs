@@ -28,5 +28,10 @@ namespace Domain.Entities
         {
             IsCompleted = true;
         }
+
+        public void MarkAsUncompleted()
+        {
+            IsCompleted = false;
+        }
     }
 }

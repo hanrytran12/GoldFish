@@ -44,5 +44,13 @@ namespace API.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
         }
+
+        [HttpPut("{id}/uncomplete")]
+        public async Task<IActionResult> MarkTaskAsUncompleted(Guid id)
+        {
+            var command = new Application.Features.Commands.MarkTaskAsUncompleted.MarkTaskAsUncompletedCommand { Id = id };
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
     }
 }
