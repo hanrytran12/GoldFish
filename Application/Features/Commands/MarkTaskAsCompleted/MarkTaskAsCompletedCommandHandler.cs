@@ -21,7 +21,7 @@ namespace Application.Features.Commands.MarkTaskAsCompleted
                 throw new NotFoundException("Task not found.");
             }
             task.MarkAsCompleted();
-            _taskRepository.UpdateTask(task);
+            await _taskRepository.UpdateTaskAsync(task);
         }
     }
 }

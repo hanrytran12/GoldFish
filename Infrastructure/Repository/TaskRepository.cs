@@ -13,16 +13,16 @@ namespace Infrastructure.Repository
             _context = context;
         }
 
-        public void AddTask(Domain.Entities.Task task)
+        public async Task AddTaskAsync(Domain.Entities.Task task)
         {
-            _context.Tasks.Add(task);
-            _context.SaveChanges();
+            await _context.Tasks.AddAsync(task);
+            await _context.SaveChangesAsync();
         }
 
-        public void DeleteTask(Domain.Entities.Task task)
+        public async Task DeleteTaskAsync(Domain.Entities.Task task)
         {
             _context.Tasks.Remove(task);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
 
         public async Task<List<Domain.Entities.Task>> GetAllTasksAsync()
@@ -35,10 +35,10 @@ namespace Infrastructure.Repository
             return await _context.Tasks.FirstOrDefaultAsync(t => t.Id == id);
         }
 
-        public void UpdateTask(Domain.Entities.Task task)
+        public async Task UpdateTaskAsync(Domain.Entities.Task task)
         {
             _context.Tasks.Update(task);
-            _context.SaveChanges();
+            await _context.SaveChangesAsync();
         }
     }
 }

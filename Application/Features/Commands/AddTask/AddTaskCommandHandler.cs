@@ -12,11 +12,11 @@ namespace Application.Features.Commands.AddTask
             _taskRepository = taskRepository;
         }
 
-        public Task<string> Handle(AddTaskCommand request, CancellationToken cancellationToken)
+        public async Task<string> Handle(AddTaskCommand request, CancellationToken cancellationToken)
         {
             var task = Domain.Entities.Task.Create(request.Content);
-            _taskRepository.AddTask(task);
-            return Task.FromResult(task.Id.ToString());
+            await _taskRepository.AddTaskAsync(task);
+            return task.Id.ToString();
         }
     }
 }

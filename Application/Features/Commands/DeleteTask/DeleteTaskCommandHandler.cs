@@ -20,7 +20,7 @@ namespace Application.Features.Commands.DeleteTask
             {
                 throw new NotFoundException("Task not found.");
             }
-            _taskRepository.DeleteTask(task);
+            await _taskRepository.DeleteTaskAsync(task);
         }
     }
 }

@@ -22,7 +22,7 @@ namespace Application.Features.Commands.UpdateTaskContent
             }
 
             task.UpdateContent(request.Content);
-            _taskRepository.UpdateTask(task);
+            await _taskRepository.UpdateTaskAsync(task);
         }
     }
 }
