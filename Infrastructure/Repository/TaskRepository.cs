@@ -32,6 +32,7 @@ namespace Infrastructure.Repository
         public void UpdateTask(Domain.Entities.Task task)
         {
             _context.Tasks.Update(task);
+            _context.SaveChanges();
         }
     }
 }

@@ -36,5 +36,13 @@ namespace API.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
         }
+
+        [HttpPut("{id}/complete")]
+        public async Task<IActionResult> MarkTaskAsCompleted(Guid id)
+        {
+            var command = new Application.Features.Commands.MarkTaskAsCompleted.MarkTaskAsCompletedCommand { Id = id };
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
     }
 }

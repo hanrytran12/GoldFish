@@ -23,5 +23,10 @@ namespace Domain.Entities
         {
             return new Task(Guid.NewGuid(), content);
         }
+
+        public void MarkAsCompleted()
+        {
+            IsCompleted = true;
+        }
     }
 }
