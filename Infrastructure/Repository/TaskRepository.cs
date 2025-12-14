@@ -19,6 +19,12 @@ namespace Infrastructure.Repository
             _context.SaveChanges();
         }
 
+        public void DeleteTask(Domain.Entities.Task task)
+        {
+            _context.Tasks.Remove(task);
+            _context.SaveChanges();
+        }
+
         public async Task<List<Domain.Entities.Task>> GetAllTasksAsync()
         {
             return await _context.Tasks.ToListAsync();

@@ -52,5 +52,13 @@ namespace API.Controllers
             var result = await _mediator.Send(command);
             return Ok(result);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> DeleteTask(Guid id)
+        {
+            var command = new Application.Features.Commands.DeleteTask.DeleteTaskCommand { Id = id };
+            var result = await _mediator.Send(command);
+            return Ok(result);
+        }
     }
 }
