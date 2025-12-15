@@ -24,6 +24,7 @@ namespace Application.Features.Queries.GetTaskById
                     Id = t.Id,
                     Content = t.Content,
                     IsCompleted = t.IsCompleted,
+                    ScheduledDate = t.ScheduledDate,
                 })
                 .FirstOrDefaultAsync(cancellationToken);
             if (task is null)

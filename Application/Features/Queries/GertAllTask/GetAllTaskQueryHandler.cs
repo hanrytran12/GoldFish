@@ -20,14 +20,25 @@ namespace Application.Features.Queries.GertAllTask
 
             if (request.Date.HasValue)
             {
-                query = query.Where(t => t.CreatedAt.Date == request.Date.Value.Date);
+                var today = DateTime.Now.Date;
+                if (request.Date.Value.Date == today)
+                {
+                    query = query.Where(t => t.ScheduledDate == request.Date.Value.Date || (t.ScheduledDate < request.Date.Value.Date && !t.IsCompleted));
+                }
+                else
+                {
+                    query = query.Where(t => t.ScheduledDate.Date == request.Date.Value.Date);
+                }
             }
+
+            query = query.OrderBy(t => t.ScheduledDate);
 
             return await query.Select(t => new TaskDTO
             {
                 Id = t.Id,
                 Content = t.Content,
                 IsCompleted = t.IsCompleted,
+                ScheduledDate = t.ScheduledDate,
             }).ToListAsync();
         }
     }
