@@ -1,0 +1,43 @@
+version: "3.9"
+
+services:
+  goldfish:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: hanryhuy/goldfish:latest
+    container_name: goldfish
+    ports:
+      - "5025:8080" 
+    env_file:
+      - .env
+    depends_on:
+      - goldfishdb
+    networks:
+      - goldfish
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+      - ASPNETCORE_ENVIRONMENT=Development 
+      - ConnectionStrings__DefaultConnection=${ConnectionStrings__DefaultConnection}
+
+  goldfishdb:
+    image: mcr.microsoft.com/mssql/server:2022-latest
+    container_name: goldfishdb
+    env_file:
+      - .env
+    ports:
+      - "1435:1433"
+    volumes:
+      - goldfishdbdata:/var/opt/mssql
+    networks:
+      - goldfish
+    environment:
+      - TZ=Asia/Ho_Chi_Minh
+      - ACCEPT_EULA=Y
+      - MSSQL_SA_PASSWORD=${SA_PASSWORD}
+
+volumes:
+  goldfishdbdata:
+
+networks:
+  goldfish:
