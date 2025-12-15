@@ -1,6 +1,8 @@
 using API.Middlewares;
+using Application.Common.Behaviors;
 using Application.Interfaces;
 using Domain.Interfaces;
+using FluentValidation;
 using Infrastructure.Persistence;
 using Infrastructure.Repository;
 using MediatR;
@@ -21,6 +23,9 @@ builder.Services.AddScoped<IAppDbContext>(provider => provider.GetRequiredServic
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();
 builder.Services.AddProblemDetails();
+
+builder.Services.AddValidatorsFromAssembly(typeof(IAppDbContext).Assembly);
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
 var app = builder.Build();
 
