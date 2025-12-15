@@ -1,4 +1,5 @@
-﻿using Domain.Primitives;
+﻿using Domain.Common.Exceptions;
+using Domain.Primitives;
 
 namespace Domain.Entities
 {
@@ -21,6 +22,11 @@ namespace Domain.Entities
 
         public static Task Create(string content)
         {
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                throw new DomainValidationException("Content not valid.");
+            }
+
             return new Task(Guid.NewGuid(), content);
         }
 
@@ -42,7 +48,15 @@ namespace Domain.Entities
         {
             if (IsCompleted) return;
 
-            this.Content = content;
+            var contentTrimmed = content.Trim();
+            if (string.IsNullOrWhiteSpace(content))
+            {
+                throw new DomainValidationException("Content not valid.");
+            }
+
+            if (contentTrimmed == this.Content) return;
+
+            this.Content = contentTrimmed;
         }
     }
 }

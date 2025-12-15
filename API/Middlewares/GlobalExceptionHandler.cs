@@ -1,4 +1,5 @@
 ﻿using Application.Common.Exceptions;
+using Domain.Common.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 
@@ -33,6 +34,12 @@ namespace API.Middlewares
 
                 ConflictException =>
                     (StatusCodes.Status409Conflict, "Xung đột dữ liệu", exception.Message),
+
+                DomainValidationException =>
+                    (StatusCodes.Status400BadRequest, "Yêu cầu không hợp lệ", exception.Message),
+
+                FluentValidation.ValidationException =>
+                    (StatusCodes.Status400BadRequest, "Yêu cầu không hợp lệ", exception.Message),
 
                 _ => (StatusCodes.Status500InternalServerError, "Lỗi hệ thống", "Đã có lỗi không mong muốn xảy ra.")
             };
