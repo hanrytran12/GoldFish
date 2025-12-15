@@ -7,6 +7,7 @@ namespace Domain.Entities
     {
         public string Content { get; private set; } = string.Empty;
         public bool IsCompleted { get; private set; }
+        public DateTime ScheduledDate { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
         public Task(Guid id, string content) : base(id)
@@ -14,6 +15,7 @@ namespace Domain.Entities
             Content = content;
             IsCompleted = false;
             CreatedAt = DateTime.Now;
+            ScheduledDate = DateTime.Today.AddDays(1);
         }
 
         private Task() : base(Guid.NewGuid()) { }

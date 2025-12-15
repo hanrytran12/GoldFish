@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251215112834_Init")]
+    [Migration("20251215114458_Init")]
     partial class Init
     {
         /// <inheritdoc />
@@ -40,6 +40,9 @@ namespace Infrastructure.Migrations
 
                     b.Property<bool>("IsCompleted")
                         .HasColumnType("bit");
+
+                    b.Property<DateTime>("ScheduledDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
