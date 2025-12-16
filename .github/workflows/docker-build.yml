@@ -1,0 +1,25 @@
+name: Docker Build CI
+
+# 1. Khi nào thì chạy? -> Khi có code push vào nhánh main
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+# 2. Làm những việc gì?
+jobs:
+  build:
+    # Thuê một máy ảo Ubuntu mới nhất
+    runs-on: ubuntu-latest
+
+    steps:
+    # Bước A: Tải code của bạn về máy ảo
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    # Bước B: Thử Build Docker Image
+    # (Hành động này sẽ kiểm tra xem code C# có lỗi cú pháp không,
+    # và Dockerfile có viết đúng không)
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag goldfish:latest
