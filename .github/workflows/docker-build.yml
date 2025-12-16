@@ -3,9 +3,9 @@ name: Docker Build CI
 # 1. Khi nào thì chạy? -> Khi có code push vào nhánh main
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "master" ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ "master" ]
 
 # 2. Làm những việc gì?
 jobs:
