@@ -10,7 +10,6 @@ namespace Domain.Entities
         public DateTime ScheduledDate { get; private set; }
         public DateTime CreatedAt { get; private set; }
 
-        public Task(Guid id, string content) : base(id)
         {
             Content = content;
             IsCompleted = false;
