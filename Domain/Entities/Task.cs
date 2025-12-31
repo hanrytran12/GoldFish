@@ -5,10 +5,12 @@ namespace Domain.Entities
 {
     public class Task : Entity
     {
+        public Guid UserId { get; set; }
         public string Content { get; private set; } = string.Empty;
         public bool IsCompleted { get; private set; }
         public DateTime ScheduledDate { get; private set; }
         public DateTime CreatedAt { get; private set; }
+        public User? User { get; set; }
 
         public Task(Guid id, string content) : base(id)
         {
