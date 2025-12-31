@@ -2,7 +2,7 @@
 using Domain.Interfaces;
 using MediatR;
 
-namespace Application.Features.Commands.DeleteTask
+namespace Application.Features.Task.Commands.DeleteTask
 {
     public class DeleteTaskCommandHandler : IRequestHandler<DeleteTaskCommand>
     {
@@ -13,7 +13,7 @@ namespace Application.Features.Commands.DeleteTask
             _taskRepository = taskRepository;
         }
 
-        public async Task Handle(DeleteTaskCommand request, CancellationToken cancellationToken)
+        public async System.Threading.Tasks.Task Handle(DeleteTaskCommand request, CancellationToken cancellationToken)
         {
             var task = await _taskRepository.GetTaskByIdAsync(request.Id);
             if (task is null)

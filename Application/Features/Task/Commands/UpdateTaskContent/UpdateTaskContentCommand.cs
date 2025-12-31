@@ -1,7 +1,7 @@
 ﻿using MediatR;
 using System.Text.Json.Serialization;
 
-namespace Application.Features.Commands.UpdateTaskContent
+namespace Application.Features.Task.Commands.UpdateTaskContent
 {
     public class UpdateTaskContentCommand : IRequest
     {

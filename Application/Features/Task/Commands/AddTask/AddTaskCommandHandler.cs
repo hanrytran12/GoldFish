@@ -1,7 +1,7 @@
 ﻿using Domain.Interfaces;
 using MediatR;
 
-namespace Application.Features.Commands.AddTask
+namespace Application.Features.Task.Commands.AddTask
 {
     public class AddTaskCommandHandler : IRequestHandler<AddTaskCommand, string>
     {

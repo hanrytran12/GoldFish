@@ -5,6 +5,7 @@ using Domain.Interfaces;
 using FluentValidation;
 using Infrastructure.Persistence;
 using Infrastructure.Repository;
+using Infrastructure.Services;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -19,6 +20,7 @@ builder.Services.AddDbContext<AppDbContext>(options => options.UseSqlServer(buil
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(IAppDbContext).Assembly));
 
 builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<IJwtTokenGenerator, JwtTokenGenerator>();
 builder.Services.AddScoped<IAppDbContext>(provider => provider.GetRequiredService<AppDbContext>());
 
 builder.Services.AddExceptionHandler<GlobalExceptionHandler>();

@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.Features.Commands.AddTask
+namespace Application.Features.Task.Commands.AddTask
 {
     public class AddTaskCommand : IRequest<string>
     {

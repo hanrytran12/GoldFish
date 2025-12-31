@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.Features.Commands.DeleteTask
+namespace Application.Features.Task.Commands.DeleteTask
 {
     public class DeleteTaskCommand : IRequest
     {

@@ -1,5 +1,11 @@
 ﻿using Application.DTOs;
-using Application.Features.Commands.UpdateTaskContent;
+using Application.Features.Task.Commands.AddTask;
+using Application.Features.Task.Commands.DeleteTask;
+using Application.Features.Task.Commands.MarkTaskAsCompleted;
+using Application.Features.Task.Commands.MarkTaskAsUncompleted;
+using Application.Features.Task.Commands.UpdateTaskContent;
+using Application.Features.Task.Queries.GertAllTask;
+using Application.Features.Task.Queries.GetTaskById;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -19,7 +25,7 @@ namespace API.Controllers
         [HttpGet]
         public async Task<ActionResult<List<TaskDTO>>> GetTasks([FromQuery] DateTime? date)
         {
-            var query = new Application.Features.Queries.GertAllTask.GetAllTaskQuery { Date = date };
+            var query = new GetAllTaskQuery { Date = date };
             var result = await _mediator.Send(query);
             return Ok(result);
         }
@@ -27,13 +33,13 @@ namespace API.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<TaskDTO>> GetTaskById(Guid id)
         {
-            var query = new Application.Features.Queries.GetTaskById.GetTaskByIdQuery { Id = id };
+            var query = new GetTaskByIdQuery { Id = id };
             var result = await _mediator.Send(query);
             return Ok(result);
         }
 
         [HttpPost]
-        public async Task<IActionResult> AddTask([FromBody] Application.Features.Commands.AddTask.AddTaskCommand command)
+        public async Task<IActionResult> AddTask([FromBody] AddTaskCommand command)
         {
             var result = await _mediator.Send(command);
             return CreatedAtAction(nameof(GetTaskById), new { id = result }, result);
@@ -42,7 +48,7 @@ namespace API.Controllers
         [HttpPut("{id}/complete")]
         public async Task<IActionResult> MarkTaskAsCompleted(Guid id)
         {
-            var command = new Application.Features.Commands.MarkTaskAsCompleted.MarkTaskAsCompletedCommand { Id = id };
+            var command = new MarkTaskAsCompletedCommand { Id = id };
             await _mediator.Send(command);
             return NoContent();
         }
@@ -50,7 +56,7 @@ namespace API.Controllers
         [HttpPut("{id}/uncomplete")]
         public async Task<IActionResult> MarkTaskAsUncompleted(Guid id)
         {
-            var command = new Application.Features.Commands.MarkTaskAsUncompleted.MarkTaskAsUncompletedCommand { Id = id };
+            var command = new MarkTaskAsUncompletedCommand { Id = id };
             await _mediator.Send(command);
             return NoContent();
         }
@@ -67,7 +73,7 @@ namespace API.Controllers
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteTask(Guid id)
         {
-            var command = new Application.Features.Commands.DeleteTask.DeleteTaskCommand { Id = id };
+            var command = new DeleteTaskCommand { Id = id };
             await _mediator.Send(command);
             return NoContent();
         }

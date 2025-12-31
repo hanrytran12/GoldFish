@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.Features.Commands.MarkTaskAsUncompleted
+namespace Application.Features.Task.Commands.MarkTaskAsUncompleted
 {
     public class MarkTaskAsUncompletedCommand : IRequest
     {

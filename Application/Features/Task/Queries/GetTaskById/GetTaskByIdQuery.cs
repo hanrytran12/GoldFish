@@ -1,7 +1,7 @@
 ﻿using Application.DTOs;
 using MediatR;
 
-namespace Application.Features.Queries.GetTaskById
+namespace Application.Features.Task.Queries.GetTaskById
 {
     public class GetTaskByIdQuery : IRequest<TaskDTO>
     {

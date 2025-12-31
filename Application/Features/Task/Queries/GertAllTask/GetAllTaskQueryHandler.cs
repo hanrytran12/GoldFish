@@ -3,7 +3,7 @@ using Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.Queries.GertAllTask
+namespace Application.Features.Task.Queries.GertAllTask
 {
     public class GetAllTaskQueryHandler : IRequestHandler<GetAllTaskQuery, List<TaskDTO>>
     {
@@ -23,7 +23,7 @@ namespace Application.Features.Queries.GertAllTask
                 var today = DateTime.Now.Date;
                 if (request.Date.Value.Date == today)
                 {
-                    query = query.Where(t => t.ScheduledDate == request.Date.Value.Date || (t.ScheduledDate < request.Date.Value.Date && !t.IsCompleted));
+                    query = query.Where(t => t.ScheduledDate == request.Date.Value.Date || t.ScheduledDate < request.Date.Value.Date && !t.IsCompleted);
                 }
                 else
                 {

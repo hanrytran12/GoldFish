@@ -1,10 +1,10 @@
 ﻿using FluentValidation;
 
-namespace Application.Features.Commands.UpdateTaskContent
+namespace Application.Features.Task.Commands.AddTask
 {
-    public class UpdateTaskContentCommandValidator : AbstractValidator<UpdateTaskContentCommand>
+    public class AddTaskCommandValidator : AbstractValidator<AddTaskCommand>
     {
-        public UpdateTaskContentCommandValidator()
+        public AddTaskCommandValidator()
         {
             RuleFor(x => x.Content)
                 .NotEmpty().WithMessage("Task content must not be empty.")

@@ -4,7 +4,7 @@ using Application.Interfaces;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.Queries.GetTaskById
+namespace Application.Features.Task.Queries.GetTaskById
 {
     public class GetTaskByIdQueryHandler : IRequestHandler<GetTaskByIdQuery, TaskDTO>
     {

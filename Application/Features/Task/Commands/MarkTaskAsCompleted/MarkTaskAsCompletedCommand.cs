@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.Features.Commands.MarkTaskAsCompleted
+namespace Application.Features.Task.Commands.MarkTaskAsCompleted
 {
     public class MarkTaskAsCompletedCommand : IRequest
     {
