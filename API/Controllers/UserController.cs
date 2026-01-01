@@ -4,6 +4,7 @@ using Application.Features.User.Command.UpdateUser;
 using Application.Features.User.Query.GetAllUser;
 using Application.Features.User.Query.GetUserById;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace API.Controllers
@@ -43,7 +44,7 @@ namespace API.Controllers
             return NoContent();
         }
 
-
+        [Authorize(Roles = "Admin")]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(Guid id)
         {
