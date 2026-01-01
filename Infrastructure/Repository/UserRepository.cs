@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repository
 {
-    public class UserRepository : IUserRepostiroy
+    public class UserRepository : IUserRepository
     {
         private readonly AppDbContext _context;
 
@@ -31,9 +31,24 @@ namespace Infrastructure.Repository
             return await _context.Users.ToListAsync();
         }
 
+        public async Task<User?> GetUserByEmailAsync(string email)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
+        }
+
         public Task<User?> GetUserByIdAsync(Guid id)
         {
             return _context.Users.FirstOrDefaultAsync(u => u.Id == id);
+        }
+
+        public async Task<User?> GetUserByPhoneAsync(string phone)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Phone == phone);
+        }
+
+        public async Task<User?> GetUserByUsernameAsync(string username)
+        {
+            return await _context.Users.FirstOrDefaultAsync(u => u.Username == username);
         }
 
         public async System.Threading.Tasks.Task UpdateUserAsync(User user)

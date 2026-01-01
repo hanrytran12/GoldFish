@@ -1,6 +1,6 @@
 ﻿using MediatR;
 
-namespace Application.Features.Auth.Command
+namespace Application.Features.Auth.Command.Login
 {
     public class LoginCommand : IRequest<string>
     {

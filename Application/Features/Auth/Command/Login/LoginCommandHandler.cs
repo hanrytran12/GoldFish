@@ -2,7 +2,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
-namespace Application.Features.Auth.Command
+namespace Application.Features.Auth.Command.Login
 {
     public class LoginCommandHandler : IRequestHandler<LoginCommand, string>
     {

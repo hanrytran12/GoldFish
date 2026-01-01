@@ -14,17 +14,21 @@ namespace Domain.Entities
         private readonly List<Task> _tasks = new();
         public IReadOnlyCollection<Task> Tasks => _tasks.AsReadOnly();
 
-        public User(Guid id, string username, string password, string email, string phone, UserRole role, DateTime createdAt)
+        public User(Guid id, string username, string password, string email, string phone, DateTime createdAt)
             : base(id)
         {
             Username = username;
             Password = password;
             Email = email;
             Phone = phone;
-            Role = role;
             CreatedAt = createdAt;
         }
 
         private User() : base(Guid.NewGuid()) { }
+
+        public static User Create(string username, string passwordHash, string email, string phone)
+        {
+            return new User(Guid.NewGuid(), username, passwordHash, email, phone, DateTime.Now);
+        }
     }
 }

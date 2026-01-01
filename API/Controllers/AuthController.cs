@@ -1,4 +1,4 @@
-﻿using Application.Features.Auth.Command;
+﻿using Application.Features.Auth.Command.Login;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 
@@ -20,6 +20,16 @@ namespace API.Controllers
             return Ok(new
             {
                 Token = result
+            });
+        }
+
+        [HttpPost("register")]
+        public async Task<IActionResult> Register([FromBody] Application.Features.Auth.Command.Register.RegisterCommand command)
+        {
+            var result = await _mediator.Send(command);
+            return Ok(new
+            {
+                UserId = result
             });
         }
     }
