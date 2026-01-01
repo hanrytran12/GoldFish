@@ -30,5 +30,20 @@ namespace Domain.Entities
         {
             return new User(Guid.NewGuid(), username, passwordHash, email, phone, DateTime.Now);
         }
+
+        public void UpdateUsername(string username)
+        {
+            Username = username;
+        }
+
+        public void UpdateEmail(string email)
+        {
+            Email = email;
+        }
+
+        public void UpdatePhone(string phone)
+        {
+            Phone = phone;
+        }
     }
 }
